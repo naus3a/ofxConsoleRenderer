@@ -1,0 +1,5 @@
+.DS_Store
+example/*.xcodeproj
+example/*.plist
+example/*.xconfig
+example/bin
