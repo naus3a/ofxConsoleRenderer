@@ -64,16 +64,11 @@ void ofxConsoleRenderer::Tbo::allocate(int _w, int _h){
 }
 
 void ofxConsoleRenderer::Tbo::setFromPixels(ofPixels &_pix){
-    for(int x=0;x<width;x++){
-        for(int y=0;y<height;y++){
-            int i = y*width+x;
-            ofColor c = _pix.getColor(x, y);
-            int sId = ofMap(c.r, 0, 255, 0, shades.size(), true);
-            tixels[i] = shades[sId];
-            
-        }
+    for(int i=0;i<tixCnt;i++){
+        unsigned char p = _pix.getData()[i*_pix.getNumChannels()];
+        int sId = ofMap(p, 0, 255, 0, shades.size(), true);
+        tixels[i] = shades[sId];
     }
-    
 }
 
 void ofxConsoleRenderer::Tbo::drawGL(){
