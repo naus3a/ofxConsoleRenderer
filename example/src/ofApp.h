@@ -21,10 +21,18 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+    
+    void update3d();
+    void updateCam();
 		
     ofxConsoleRenderer console;
     ofFbo fbo;
     ofLight ptLights[4];
     ofMaterial mat;
-    ofSpherePrimitive box;
+    ofBoxPrimitive box;
+    ofSpherePrimitive ball;
+    
+    //ofVideoGrabber cam;
+    
+    int mode;
 };

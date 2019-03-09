@@ -5,11 +5,17 @@ void ofApp::setup(){
     ofSetFrameRate(20);
     ofSetVerticalSync(true);
     ofBackground(0);
+    ofSetWindowPosition(10, 10);
+    
+    mode = 1;
+    
+    //cam.setup(640,480);
     
     fbo.allocate(640, 480, GL_RGB);
     console.setup(128, 48);
     
-    box.set(100, 10);
+    box.set(150);
+    ball.set(100,10);
     
     ofSetSmoothLighting(true);
     for(int i=0;i<4;i++){
@@ -30,7 +36,29 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     fbo.begin();
-    ofClear(50, 50, 50);
+    switch (mode) {
+        case 0:
+            updateCam();
+            break;
+        case 1:
+            update3d();
+            break;
+            
+        default:
+            break;
+    }
+    fbo.end();
+    
+    
+    console.update(fbo);
+}
+
+void ofApp::updateCam(){
+    
+}
+
+void ofApp::update3d(){
+    ofClear(0,0,0);
     float t = ofGetElapsedTimef();
     float aY = t;
     float aZ = t*50*0.7;
@@ -56,23 +84,20 @@ void ofApp::update(){
         ptLights[i].setPosition(p[i]);
         ofDrawSphere(p[i],20);
     }
-
+    
     
     ofRotateYDeg(aY);
     ofRotateZDeg(aZ);
     
     mat.begin();
-    box.draw();
+    //box.draw();
+    ball.draw();
     mat.end();
     
     ofPopMatrix();
     for(int i=0;i<4;i++)ptLights[i].disable();
     ofDisableLighting();
     ofDisableDepthTest();
-    fbo.end();
-    
-    
-    console.update(fbo);
 }
 
 //--------------------------------------------------------------
@@ -84,7 +109,7 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    
 }
 
 //--------------------------------------------------------------

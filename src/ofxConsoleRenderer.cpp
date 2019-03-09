@@ -42,7 +42,7 @@ void main(){
 )";
 
 void ofxConsoleRenderer::Tbo::setupDefaultShades(){
-    shades = " .,-~:;=!*#$@";
+    shades = "  .,'`-_:;^*\"=+<>iv%&xclrs)/){}I?!][1taeo7zjLunT#@JCwfy325Fp6mqSghVd4EgXPGZbYkOA8U$KHDBWNMR0Q";
 }
 
 void ofxConsoleRenderer::Tbo::destroyTixels(){
@@ -75,7 +75,6 @@ void ofxConsoleRenderer::Tbo::drawGL(){
     string s;
     for(int i=0;i<tixCnt;i++){
         s+=tixels[i];
-        //s+=tixels[i];
         if(i%width==0){
             s+="\n";
         }
@@ -85,14 +84,15 @@ void ofxConsoleRenderer::Tbo::drawGL(){
 
 void ofxConsoleRenderer::Tbo::drawCLI(){
     cout<<Nap::esc<<"["<<(int)(Nap::ClearMode::ALL)<<"J";
-    
-    for(int i=0;i<tixCnt;i++){
-        cout<<tixels[i];
-        //cout<<tixels[i];
-        if(i>0 && i%width==0){
-            cout<<endl;
+    for(int l=0;l<height;l++){
+        unsigned char * sp = &tixels[l*width];
+        for(int c=0;c<width;c++){
+            cout<<*sp;
+            sp++;
         }
+    cout<<endl;
     }
+    
     fflush(stdout);
 }
 
@@ -131,5 +131,4 @@ void ofxConsoleRenderer::update(ofFbo & _fbo){
 
 void ofxConsoleRenderer::draw(){
     tbo.drawCLI();
-    fboLum.draw(10,10);
 }
